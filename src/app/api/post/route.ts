@@ -5,11 +5,8 @@ import { authOptions } from "@/app/lib/auth";
 
 export async function POST(request: any, res: any) {
   const { title, content } = await request.json();
-  console.log("---------------------------------------------------------");
-  console.log(request);
-  console.log("---------------------------------------------------------");
-
   const session = await getServerSession(authOptions);
+  console.log(session);
   if (!session) {
     return new NextResponse(
       JSON.stringify({ status: "fail", message: "You are not logged in" }),
