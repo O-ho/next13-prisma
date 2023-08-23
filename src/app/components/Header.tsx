@@ -154,10 +154,8 @@ const Header: React.FC = () => {
             <a>New post</a>
           </button>
         </Link>
-        <Link href="/signOut">
-          <button onClick={() => console.log("signout")}>
-            <a>Log out</a>
-          </button>
+        <Link href="/api/auth/signOut">
+          <a>Log out</a>
         </Link>
 
         <style jsx>{`
