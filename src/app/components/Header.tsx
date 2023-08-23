@@ -154,7 +154,7 @@ const Header: React.FC = () => {
             <a>New post</a>
           </button>
         </Link>
-        <Link href="/api/auth/signOut">
+        <Link href="/api/auth/signout">
           <a>Log out</a>
         </Link>
 
