@@ -17,7 +17,7 @@ type Props = {
   drafts: PostProps[];
 };
 async function getDrafts() {
-  const res = await fetch("http://localhost:3000/api/post", {
+  const res = await fetch("https://next13-prisma-ochre.vercel.app/api/post", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
