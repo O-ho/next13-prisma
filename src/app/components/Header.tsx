@@ -154,9 +154,12 @@ const Header: React.FC = () => {
             <a>New post</a>
           </button>
         </Link>
-        <button onClick={() => console.log("signout")}>
-          <a>Log out</a>
-        </button>
+        <Link href="/signOut">
+          <button onClick={() => console.log("signout")}>
+            <a>Log out</a>
+          </button>
+        </Link>
+
         <style jsx>{`
           a {
             text-decoration: none;

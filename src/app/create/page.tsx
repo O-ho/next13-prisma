@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -21,16 +21,19 @@ const Draft: React.FC = () => {
         body: JSON.stringify(body),
       }).then(async (res) => {
         if (res.ok) {
+          router.replace("/drafts");
           alert("Post created successfully!");
-          await router.replace("/drafts");
         }
       });
     } catch (err) {
       console.log(err);
-    } finally {
-      setIsLoading(false);
     }
   };
+  useEffect(() => {
+    return () => {
+      setIsLoading(false);
+    };
+  }, []);
 
   return (
     <div>
