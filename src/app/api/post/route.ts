@@ -29,3 +29,25 @@ export async function POST(request: any, res: any) {
   });
   return NextResponse.json(result);
 }
+export async function GET(res: any) {
+  const session = await getServerSession(authOptions);
+  console.log(res);
+  // if (!session) {
+  //   return new NextResponse(
+  //     JSON.stringify({ status: "fail", message: "You are not logged in" }),
+  //     { status: 401 },
+  //   );
+  // }
+  const result = await prisma.post.findMany({
+    where: {
+      author: { email: session?.user?.email },
+      published: false,
+    },
+    include: {
+      author: {
+        select: { name: true },
+      },
+    },
+  });
+  return NextResponse.json(result);
+}

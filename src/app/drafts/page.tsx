@@ -1,31 +1,8 @@
-"use client";
-
 import React from "react";
-import { getSession, useSession } from "next-auth/react";
-import prisma from "@/app/lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/lib/auth";
 import Post from "@/app/components/Post";
 
-// const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-//   const session = await getSession();
-//   if (!session) {
-//     res.statusCode = 403;
-//     return { props: { drafts: [] } };
-//   }
-//   const drafts = await prisma.post.findMany({
-//     where: {
-//       author: { email: session?.user?.email },
-//       published: false,
-//     },
-//     include: {
-//       author: {
-//         select: { name: true },
-//       },
-//     },
-//   });
-//   return {
-//     props: { drafts },
-//   };
-// };
 type PostProps = {
   id: string;
   title: string;
@@ -39,33 +16,21 @@ type PostProps = {
 type Props = {
   drafts: PostProps[];
 };
-export default function Drafts({ params }: { params: Props }) {
-  async function getDrafts() {
-    const session = await getSession();
-    if (!session) {
-      return { props: { drafts: [] } };
-    }
-    const drafts = await prisma.post.findMany({
-      where: {
-        author: { email: session?.user?.email },
-        published: false,
-      },
-      include: {
-        author: {
-          select: { name: true },
-        },
-      },
-    });
-    console.log('-------------------------------------')
-    console.log(drafts);
+async function getDrafts() {
+  const res = await fetch("http://localhost:3000/api/post", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+  const drafts = await res.json();
 
-    console.log('-------------------------------------')
-    return {
-      props: { drafts },
-    };
-  }
-  const { data: session } = useSession();
+  return { post: drafts };
+}
 
+export default async function Drafts(props: any) {
+  const session = await getServerSession(authOptions);
+
+  const data = await getDrafts();
+  console.log(data);
 
   if (!session) {
     return (
@@ -81,27 +46,13 @@ export default function Drafts({ params }: { params: Props }) {
       <div className="page">
         <h1>My Drafts</h1>
         <main>
-          {params.drafts?.map((post) => (
-            <div key={post.id} className="post">
-              <Post post={post} />
+          {data.post.map((item: PostProps) => (
+            <div key={item.id} className="post">
+              <Post post={item} />
             </div>
           ))}
         </main>
       </div>
-      <style jsx>{`
-        .post {
-          background: var(--geist-background);
-          transition: box-shadow 0.1s ease-in;
-        }
-
-        .post:hover {
-          box-shadow: 1px 1px 3px #aaa;
-        }
-
-        .post + .post {
-          margin-top: 2rem;
-        }
-      `}</style>
     </div>
   );
 }

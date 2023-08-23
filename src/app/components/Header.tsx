@@ -7,7 +7,6 @@ import React from "react";
 
 const Header: React.FC = () => {
   const router = useRouter();
-  console.log(router);
   const isActive: (pathname: string) => boolean = (pathname) => false;
 
   const { data: session, status } = useSession();
