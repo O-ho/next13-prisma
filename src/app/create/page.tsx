@@ -7,9 +7,11 @@ import Link from "next/link";
 const Draft: React.FC = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const submitData = async (e: React.SyntheticEvent) => {
+    setIsLoading(true);
     e.preventDefault();
     try {
       const body = { title, content };
@@ -17,10 +19,16 @@ const Draft: React.FC = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
+      }).then(async (res) => {
+        if (res.ok) {
+          alert("Post created successfully!");
+          await router.replace("/drafts");
+        }
       });
-      await router.push("/drafts");
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -42,7 +50,11 @@ const Draft: React.FC = () => {
           placeholder="Content"
           value={content}
         />
-        <input disabled={!content || !title} type="submit" value="Create" />
+        <input
+          disabled={!content || !title || isLoading}
+          type="submit"
+          value={isLoading ? "Creating..." : "Create"}
+        />
         <Link href={"/"} replace>
           or Cancel
         </Link>
