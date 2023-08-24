@@ -16,6 +16,7 @@ type PostProps = {
 type Props = {
   drafts: PostProps[];
 };
+//https://next13-prisma-ochre.vercel.app
 async function getDrafts() {
   const res = await fetch("https://next13-prisma-ochre.vercel.app/api/post", {
     method: "GET",
@@ -30,7 +31,6 @@ export default async function Drafts(props: any) {
   const session = await getServerSession(authOptions);
 
   const data = await getDrafts();
-  console.log(data);
   if (!session) {
     return (
       <div>
