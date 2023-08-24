@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import React from "react";
 import styled from "@emotion/styled";
 import Link from "next/link";
+import { css } from "@emotion/react";
 
 const Nav = styled.nav`
   display: flex;
@@ -38,7 +39,8 @@ const Left = styled.div`
 `;
 const Right = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  height: 100%;
 `;
 const CTA = styled(LoginButton)`
   display: flex;
@@ -47,15 +49,18 @@ const CTA = styled(LoginButton)`
 const LinkButton = styled.div`
   text-decoration: underline;
   text-underline-offset: 5px;
-  font-size: 1.2rem;
-  margin-left: 1rem;
+  font-size: 0.8rem;
+  margin-left: 0.8rem;
+  word-break: keep-all;
   color: #252b48;
 `;
 type BlackConsumer = {
   isBlack: boolean;
 };
-const User = styled.p<BlackConsumer>`
-  font-size: 1.2rem;
+const User = styled.span<BlackConsumer>`
+  font-size: 0.8rem;
+  padding-top: 8px;
+  text-align: right;
   color: ${(props) => (props.isBlack ? "red" : "#3f1d38")};
 `;
 
@@ -63,8 +68,11 @@ const LinkStyled = styled(Link)`
   text-decoration: none;
   color: #3f1d38;
 `;
-const Title = styled.h1`
+const Title = styled.p`
+  font-weight: 600;
+  font-size: 1.2rem;
   letter-spacing: 0.2rem;
+  margin: 0;
 `;
 const TITLE = "SUPER-STAR TOP6";
 
@@ -103,9 +111,16 @@ const Header: React.FC = () => {
     right = (
       <div className="right">
         <LinkStyled href="/api/auth/signin">
-          <LoginButton>
-            <p>LOGIN</p>
-          </LoginButton>
+          <div
+            css={css`
+              display: flex;
+              margin-top: 14px;
+            `}
+          >
+            <LoginButton>
+              <p>LOGIN</p>
+            </LoginButton>
+          </div>
         </LinkStyled>
       </div>
     );
@@ -126,16 +141,23 @@ const Header: React.FC = () => {
     );
     right = (
       <Right>
+        <div
+          css={css`
+            display: flex;
+            margin-top: 14px;
+          `}
+        >
+          <LinkStyled href="/create">
+            <CTA>POSTING</CTA>
+          </LinkStyled>
+          <LinkStyled href="/api/auth/signout">
+            <CTA>LOGOUT </CTA>
+          </LinkStyled>
+        </div>
         <User isBlack={isBlack}>
           {isBlack ? "퍼킹블랙컨슈머 " : null}
           {session.user?.name} ({session.user?.email})
         </User>
-        <LinkStyled href="/create">
-          <CTA>POSTING</CTA>
-        </LinkStyled>
-        <LinkStyled href="/api/auth/signout">
-          <CTA>LOGOUT </CTA>
-        </LinkStyled>
       </Right>
     );
   }

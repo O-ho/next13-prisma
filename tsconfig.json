@@ -13,6 +13,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["@emotion/react/types/css-prop"],
+    "jsxImportSource": "@emotion/react",
     "plugins": [
       {
         "name": "next"
