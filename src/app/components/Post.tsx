@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Router from "next/navigation";
 import ReactMarkdown from "react-markdown";
 
 export type PostProps = {
@@ -18,17 +17,18 @@ export type PostProps = {
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
   const authorName = post.author ? post.author.name : "Unknown author";
   return (
-    <div>
-      <h2>{post.title}</h2>
-      <small>By {authorName}</small>
+    <div
+      className={
+        "mt-8 border-slate-200 border-4 rounded-2xl p-4 shadow-lg shadow-gray-200"
+      }
+    >
+      <h2 className={"font-cafe24 tracking-widest text-3xl"}>{post.title}</h2>
+      <p className={"font-pretendard text-lg my-4 italic"}>By - {authorName}</p>
       {/* eslint-disable-next-line react/no-children-prop */}
-      <ReactMarkdown children={post.content} />
-      <style jsx>{`
-        div {
-          color: inherit;
-          padding: 2rem;
-        }
-      `}</style>
+      <span className={"font-pretendard text-2xl tracking-wide leading-10"}>
+        {" "}
+        {post.content}
+      </span>
     </div>
   );
 };

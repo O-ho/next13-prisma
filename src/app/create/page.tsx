@@ -36,10 +36,13 @@ const Draft: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <form onSubmit={submitData}>
-        <h1>New Draft</h1>
+    <div className={"px-8"}>
+      <form onSubmit={submitData} className={"flex flex-col"}>
+        <h1 className={"font-cafe24 tracking-widest text-3xl"}>POSTING</h1>
         <input
+          className={
+            "border-slate-500 border-2 rounded-2xl p-4 my-4 font-pretendard"
+          }
           autoFocus
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Title"
@@ -47,6 +50,10 @@ const Draft: React.FC = () => {
           value={title}
         />
         <textarea
+          className={
+            "border-slate-500 border-2 rounded-2xl p-4 font-pretendard"
+          }
+          maxLength={100}
           cols={50}
           rows={8}
           onChange={(e) => setContent(e.target.value)}
@@ -54,41 +61,24 @@ const Draft: React.FC = () => {
           value={content}
         />
         <input
+          className={`border-slate-500 border-2 rounded-2xl p-4 my-4 font-pretendard ${
+            !content || !title || isLoading
+              ? "bg-gray-100 text-slate-200"
+              : "bg-slate-500 text-white"
+          }`}
           disabled={!content || !title || isLoading}
           type="submit"
           value={isLoading ? "Creating..." : "Create"}
         />
-        <Link href={"/"} replace>
-          or Cancel
+        <Link
+          href={"/"}
+          replace
+          className={
+            "flex justify-center border-slate-500 border-2 rounded-2xl p-4  font-pretendard"
+          }
+        >
+          Cancel
         </Link>
-        <style jsx>{`
-          .page {
-            background: var(--geist-background);
-            padding: 3rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-
-          input[type="text"],
-          textarea {
-            width: 100%;
-            padding: 0.5rem;
-            margin: 0.5rem 0;
-            border-radius: 0.25rem;
-            border: 0.125rem solid rgba(0, 0, 0, 0.2);
-          }
-
-          input[type="submit"] {
-            background: #ececec;
-            border: 0;
-            padding: 1rem 2rem;
-          }
-
-          .back {
-            margin-left: 1rem;
-          }
-        `}</style>
       </form>
     </div>
   );

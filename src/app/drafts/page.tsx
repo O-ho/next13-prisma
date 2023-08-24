@@ -41,9 +41,9 @@ export default async function Drafts(props: any) {
   }
 
   return (
-    <div>
+    <div className={"flex px-8"}>
       <div className="page">
-        <h1>My Drafts</h1>
+        <h1 className={"font-cafe24 tracking-widest text-3xl"}>POSTINGS</h1>
         <main>
           {data.post.map((item: PostProps) => (
             <div key={item.id} className="post">
