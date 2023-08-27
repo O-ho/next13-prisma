@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import prisma from "@/app/lib/prisma";
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { authOptions } from "@/app/lib/auth";
 
 export async function POST(request: any, res: any) {
@@ -25,17 +25,9 @@ export async function POST(request: any, res: any) {
   });
   return NextResponse.json(result);
 }
-export async function GET(req:any) {
-  const session = await getServerSession(authOptions);
-  // if (!session) {
-  //   return new NextResponse(
-  //     JSON.stringify({ status: "fail", message: "You are not logged in" }),
-  //     { status: 401 },
-  //   );
-  // }
+export async function GET(req: any) {
   const result = await prisma.post.findMany({
     where: {
-      author: { email: session?.user?.email },
       published: false,
     },
     include: {
