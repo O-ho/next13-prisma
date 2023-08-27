@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/auth";
 import Post from "@/app/components/Post";
 
-type PostProps = {
+export type PostProps = {
   id: string;
   title: string;
   author: {
@@ -13,12 +13,9 @@ type PostProps = {
   content: string;
   published: boolean;
 };
-type Props = {
-  drafts: PostProps[];
-};
-//https://next13-prisma-ochre.vercel.app
+
 async function getDrafts() {
-  const res = await fetch("https://next13-prisma-ochre.vercel.app/api/post", {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/post`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
@@ -29,7 +26,6 @@ async function getDrafts() {
 
 export default async function Drafts(props: any) {
   const session = await getServerSession(authOptions);
-
   const data = await getDrafts();
   if (!session) {
     return (
