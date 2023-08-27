@@ -2,6 +2,7 @@ import React from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/auth";
 import Post from "@/app/components/Post";
+import { headers } from "next/headers";
 
 export type PostProps = {
   id: string;
@@ -17,7 +18,7 @@ export type PostProps = {
 async function getDrafts() {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/post`, {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: headers(),
   });
   const drafts = await res.json();
 
