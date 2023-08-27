@@ -64,7 +64,7 @@ const Header: React.FC = () => {
           <div>POSTS</div>
         </Link>
         <Link
-          href="/"
+          href="/myDraft"
           className={"ml-4 underline underline-offset-4 text-black-700"}
         >
           <div>내가 쓴 글</div>
