@@ -2,13 +2,12 @@ import React from "react";
 import { headers } from "next/headers";
 import { PostProps } from "@/app/drafts/page";
 import Post from "@/app/components/Post";
-import { getServerSession } from "next-auth";
+import { getServerSession, Session } from "next-auth";
 import { authOptions } from "@/app/lib/auth";
 
 async function getDrafts() {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/myDraft`, {
     method: "GET",
-    headers: headers(),
   });
   const drafts = await res.json();
 
