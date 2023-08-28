@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Header from "@/app/components/Header";
 import AuthSession from "@/app/components/AuthSession";
 import React from "react";
+import { TrpcProvider } from "@/app/util/trpc-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,10 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthSession>
-          <Header />
-          {children}
-        </AuthSession>
+        <TrpcProvider>
+          <AuthSession>
+            <Header />
+            {children}
+          </AuthSession>
+        </TrpcProvider>
       </body>
     </html>
   );
