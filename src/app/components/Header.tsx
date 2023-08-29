@@ -28,7 +28,7 @@ const Header: React.FC = () => {
   };
   let left = <Left />;
 
-  let right = null;
+  let right;
 
   if (status === "loading") {
     left = <Left />;
