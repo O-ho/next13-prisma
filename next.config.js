@@ -16,6 +16,7 @@ const nextConfig = {
     NEXTAUTH_URL: "https://next13-prisma-ochre.vercel.app",
     // NEXTAUTH_URL: "http://localhost:3000",
     NEXT_PUBLIC_VERCEL_URL: "https://next13-prisma-ochre.vercel.app/api/trpc",
+    // NEXT_PUBLIC_VERCEL_URL: "http://localhost:3000/api/trpc",
   },
 };
 
