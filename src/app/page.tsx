@@ -1,9 +1,14 @@
 "use client";
 
+import ListUser from "@/app/components/ListUser";
+import HomeCarousel from "@/app/components/Carousel/HomeCarousel";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-white">
-      <div>asdasdas</div>
+    <main>
+      <div>활성화 유저</div>
+      <ListUser />
+      <HomeCarousel />
     </main>
   );
 }
