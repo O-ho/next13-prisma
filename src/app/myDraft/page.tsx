@@ -4,7 +4,7 @@ import { PostProps } from "@/app/drafts/page";
 import Post from "@/app/components/Post";
 import { getServerSession, Session } from "next-auth";
 import { authOptions } from "@/app/lib/auth";
-
+console.log(11);
 async function getDrafts() {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/myDraft`, {
     method: "GET",
